@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-var User = require('sequelize').import('../models/user');
+const { User } = require('../db');
 
 module.exports = function (req, res, next) {
+    console.log(req.headers);
     if (req.method == 'OPTIONS') {
         next();   // allowing options as a method for request
     } else {
@@ -12,6 +13,7 @@ module.exports = function (req, res, next) {
             jwt.verify(sessionToken, 'lets_play_sum_games_man', (err, decoded) => {
                 if (decoded) {
                     User.findOne({ where: { id: decoded.id } }).then(user => {
+                        console.log(user)
                         req.user = user;
                         console.log(`user: ${user}`)
                         next()
