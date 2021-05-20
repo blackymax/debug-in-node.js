@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 
 sequelize.sync();
-// app.use(require('body-parser'))
 app.use('/api/auth', user);
 app.use(require('./middleware/validate-session'));
 app.use('/api/game', game);
