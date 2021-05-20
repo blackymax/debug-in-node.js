@@ -12,7 +12,6 @@ router.post('/signup', (req, res) => {
     email: req.body.user.email,
   }).then(
     (user) => {
-      console.log(user.dataValues);
       let token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', {
         expiresIn: 60 * 60 * 24,
       });
@@ -22,7 +21,6 @@ router.post('/signup', (req, res) => {
       });
     },
     (err) => {
-      console.log(err);
       res.status(500).send(err.message);
     }
   );
