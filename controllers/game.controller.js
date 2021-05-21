@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Game } = require('../db');
 
-router.route('/all').get((req, res) => {
+router.get('/all', (req, res) => {
   Game.findAll({ where: { owner_id: req.user.id } }).then(
     (data) => {
       res.status(200).json({
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
         game: game,
       });
     },
-    (err) => {
+    () => {
       res.status(500).json({
         message: 'Data not found.',
       });
@@ -32,10 +32,10 @@ router.get('/:id', (req, res) => {
   );
 });
 
-router.route('/create').post((req, res) => {
+router.post('/create',(req, res) => {
   Game.create({
     title: req.body.game.title,
-    owner_id: req.body.user.id,
+    owner_id: req.user.id,
     studio: req.body.game.studio,
     esrb_rating: req.body.game.esrb_rating,
     user_rating: req.body.game.user_rating,
@@ -47,7 +47,6 @@ router.route('/create').post((req, res) => {
         message: 'Game created.',
       });
     },
-
     (err) => {
       res.status(500).send(err.message);
     }

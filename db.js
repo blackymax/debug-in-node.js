@@ -3,7 +3,6 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('gamedb', 'postgres', 'MAXIMus2013', {
   host: 'localhost',
   dialect: 'postgres',
-  operatorsAliases: false,
   port: 5433,
 });
 
